@@ -1,0 +1,18 @@
+# ~/stanford-ner-2015-12-09 is alocation of instaled tools: http://stanfordnlp.github.io/CoreNLP/
+# Steps to take to create your own classifier:
+
+1. Tokenize data file, put token (word) per line:
+java -cp "~/stanford-ner-2015-12-09/*:~/stanford-ner-2015-12-09/lib/*" edu.stanford.nlp.process.PTBTokenizer ../test/nerinput.txt > ./myModel.tok
+
+2. Mark each token with default: 0 
+perl -ne 'chomp; print "$_\tO\n"' ./myModel.tok > myModel.tsv
+
+3. Update myModel.tsv file by "tagging" / classifying needed words / expressions, for example:
+presidential	O
+nominee	O
+Aa	MYPERSON
+Bb	MYPERSON
+.	O
+
+4. Train, create a model file
+java -cp "~/stanford-ner-2015-12-09/*:~/stanford-ner-2015-12-09/lib/*" edu.stanford.nlp.ie.crf.CRFClassifier -prop ./myModel.prop

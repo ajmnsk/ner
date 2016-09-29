@@ -1,0 +1,3 @@
+# options to increase JAVA heap needed for assembly plug in
+
+activator -J-Xmx2G -J-Xms2G
