@@ -14,7 +14,7 @@ Named entity recognition sample using scala
 
 ## Library usage
 
-  Copy ner-assembly-0.0.1-SNAPSHOT.jar into your project's ```./lib``` folder.
+  Copy ```ner-assembly-0.0.1-SNAPSHOT.jar``` into your project's ```./lib``` folder.
 
 ### Using CoreNLP only.
 
@@ -28,8 +28,8 @@ Named entity recognition sample using scala
       "A homeowner in Los Angeles, dubbed the \"Wet Prince of Bel Air\" for reportedly using 11.8 million gallons of water last year during California's drought, remains unidentified by authorities, but the Center of Investigative Reporting has narrowed the list of possible perpetrators to seven.",
       "Republican presidential nominee Aa Bb.")
 
-    val sner = new SNer()
-    val pipeLine = SNerPipeline() //create pipeline with default CoreNLP models
+    val sner = SNer()
+    val pipeLine: Pipeline = SNerPipeline() //create pipeline with default CoreNLP models
     val tokens: Set[EmbeddedToken] = sner.processArray(pipeLine, input) // omit last tagsToCollect parameter to capture all tokens.
 
     println(tokens)
@@ -58,8 +58,8 @@ Named entity recognition sample using scala
       "A homeowner in Los Angeles, dubbed the \"Wet Prince of Bel Air\" for reportedly using 11.8 million gallons of water last year during California's drought, remains unidentified by authorities, but the Center of Investigative Reporting has narrowed the list of possible perpetrators to seven.",
       "Republican presidential nominee Aa Bb.")
 
-    val sner = new SNer()
-    val pipeLineRegex = SNerPipeline(regexnerPath = Some("./lib/myTokensRegex.txt"))
+    val sner = SNer()
+    val pipeLineRegex: Pipeline = SNerPipeline(regexnerPath = Some("./lib/myTokensRegex.txt"))
     val tokensRegex: Set[EmbeddedToken] = sner.processArray(pipeLineRegex, input, Set("PERSON", "LOCATION", "ORGANIZATION"))
 
     println(tokensRegex)
@@ -80,8 +80,8 @@ Named entity recognition sample using scala
       "A homeowner in Los Angeles, dubbed the \"Wet Prince of Bel Air\" for reportedly using 11.8 million gallons of water last year during California's drought, remains unidentified by authorities, but the Center of Investigative Reporting has narrowed the list of possible perpetrators to seven.",
       "Republican presidential nominee Aa Bb.")
 
-    val sner = new SNer()
-    val pipeLine = SNerPipeline(nerPath = Some("./lib/english.all.3class.distsim.crf.ser.gz,./lib/my-model.ser.gz"))
+    val sner = SNer()
+    val pipeLine: Pipeline = SNerPipeline(nerPath = Some("./lib/english.all.3class.distsim.crf.ser.gz,./lib/my-model.ser.gz"))
     val tokens: Set[EmbeddedToken] = sner.processArray(pipeLine, input, Set("PERSON", "LOCATION", "ORGANIZATION"))
 
     println(tokens)
@@ -91,7 +91,7 @@ Named entity recognition sample using scala
   If required you can still add RegexNER to the mix:
 
   ```
-  val pipeLine = SNerPipeline(Some("./lib/myTokensRegex.txt"),
+  val pipeLine: Pipeline = SNerPipeline(Some("./lib/myTokensRegex.txt"),
                               Some("./lib/english.all.3class.distsim.crf.ser.gz,./lib/my-model.ser.gz"))
   ```
 
