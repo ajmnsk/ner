@@ -1,5 +1,6 @@
 package org.aj.ner
 
+import org.aj.ner.SNerPipeline.Pipeline
 import org.scalatest.{FunSpecLike, Matchers}
 
 /**
@@ -7,7 +8,7 @@ import org.scalatest.{FunSpecLike, Matchers}
   */
 class NerTest extends FunSpecLike with Matchers {
 
-  val sner = new SNer()
+  val sner = SNer()
   val input = Array[String](
     "Democratic presidential nominee Hillary Clinton.",
     "A homeowner in Los Angeles, dubbed the \"Wet Prince of Bel Air\" for reportedly using 11.8 million gallons of water last year during California's drought, remains unidentified by authorities, but the Center of Investigative Reporting has narrowed the list of possible perpetrators to seven.",
@@ -20,7 +21,7 @@ class NerTest extends FunSpecLike with Matchers {
 
   describe("StanfordCoreNLP module only to process input and identify PERSON, and LOCATION tags in a text") {
 
-    val pipeLine = SNerPipeline()
+    val pipeLine: Pipeline = SNerPipeline()
 
     it("Should be able to identify EmbeddedToken(PERSON,Hillary Clinton)") {
       val tokens = sner.processArray(pipeLine, input)

@@ -10,6 +10,8 @@ import scala.collection.JavaConverters._
 import scala.collection.mutable.ListBuffer
 import scala.io.Source
 
+import SNerPipeline.Pipeline
+
 object SNer {
 
   private val config = ConfigFactory.load("application")
@@ -22,6 +24,8 @@ object SNer {
 
   private val tags = config.getStringList("stanfordNer.tagsToCollect").asScala
   def tagsToCollect = if (tags.size < 1) Set.empty[String] else tags.toSet
+
+  def apply(): SNer = new SNer()
 
 }
 
@@ -43,7 +47,7 @@ class SNer() {
     * @param tagsToCollect tags to collect, if not provided, no filtering will be done, and result will have all identified tokens
     * @return results
     */
-  def processString(pipeline: StanfordCoreNLP, data: String, tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
+  def processString(pipeline: Pipeline, data: String, tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
     processArray(pipeline, Array(data), tagsToCollect)
   }
 
@@ -55,7 +59,7 @@ class SNer() {
     * @param tagsToCollect tags to collect, if not provided, no filtering will be done, and result will have all identified tokens
     * @return results
     */
-  def processFile(pipeline: StanfordCoreNLP, data: String, tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
+  def processFile(pipeline: Pipeline, data: String, tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
     processIterator(pipeline, Source.fromFile(data).getLines(), tagsToCollect)
   }
 
@@ -67,7 +71,7 @@ class SNer() {
     * @param tagsToCollect tags to collect, if not provided, no filtering will be done, and result will have all identified tokens
     * @return results
     */
-  def processArray(pipeline: StanfordCoreNLP, data: Array[String], tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
+  def processArray(pipeline: Pipeline, data: Array[String], tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
     processIterator(pipeline, data.toIterator, tagsToCollect)
   }
 
@@ -79,7 +83,7 @@ class SNer() {
     * @param tagsToCollect tags to collect, if not provided, no filtering will be done, and result will have all identified tokens
     * @return results
     */
-  def processIterator(pipeline: StanfordCoreNLP, data: Iterator[String], tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
+  def processIterator(pipeline: Pipeline, data: Iterator[String], tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
 
     //collections for classified tokens
     val currentToken = collection.mutable.Set[String]()
@@ -108,7 +112,7 @@ class SNer() {
     * @param dataIterator Iterator for passed-in data
     * @return a collection of coreMap(s)
     */
-  private def getSentences(pipeline: StanfordCoreNLP, dataIterator: Iterator[String]) =
+  private def getSentences(pipeline: Pipeline, dataIterator: Iterator[String]) =
     for (record <- dataIterator) yield {
       //Annotators on the passed-in data
       val document: Annotation = new Annotation(record)

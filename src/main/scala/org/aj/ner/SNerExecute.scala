@@ -50,7 +50,7 @@ object SNerExecute {
     println(s"regexnerPath: $regexnerPath, nerPath: $nerPath")
 
     val pipeLine = SNerPipeline(regexnerPath, nerPath)
-    val sner = new SNer()
+    val sner = SNer()
 
     println("-----------------STARTED-------------------------")
 

@@ -5,6 +5,8 @@ import edu.stanford.nlp.pipeline.StanfordCoreNLP
 
 object SNerPipeline {
 
+  type Pipeline = StanfordCoreNLP
+
   /**
     * Creates StanfordCoreNLP object, with POS tagging, lemmatization, NER, parsing, and on.
     * Default CoreNLP / NER models are used If no parameter(s) passed.
@@ -16,7 +18,7 @@ object SNerPipeline {
     * @param nerPath path to a comma delimited list of models, if passed, it will be used instead of default CoreNLP / NER models
     * @return
     */
-  def apply(regexnerPath: Option[String] = None, nerPath: Option[String] = None): StanfordCoreNLP = {
+  def apply(regexnerPath: Option[String] = None, nerPath: Option[String] = None): Pipeline = {
 
     val props = new Properties()
     regexnerPath match {
@@ -33,9 +35,7 @@ object SNerPipeline {
       case _ => None
     }
 
-    val npl = new StanfordCoreNLP(props)
-
-    npl
+    new StanfordCoreNLP(props)
 
   }
 

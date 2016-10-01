@@ -2,13 +2,13 @@ Named entity recognition sample using scala
 ===============================================
 
   Inspired by [Humphrey Sheil](http://www.informit.com/articles/article.aspx?p=2265404) article.
-  This simple library is written in scala and using [Stanford CoreNLP suite of tools](http://stanfordnlp.github.io/CoreNLP/)
+  This simple library is written in scala and using [Stanford CoreNLP suite of tools](http://stanfordnlp.github.io/CoreNLP/).
   Need to be familiar with [Stanford Named Entity Recognizer (NER)](http://nlp.stanford.edu/software/CRF-NER.shtml) to understand the usage.
 
 ## Build library
 
   Pull the code. Go to project folder (location of built.sbt).
-  Run activator as following ```activator -J-Xmx2G -J-Xms2G``` to assign an increased JAVA heap needed by assembly plug in.
+  Run activator as following ```activator -J-Xmx2G -J-Xms2G``` to assign an increased JAVA heap needed by ```assembly``` plug in.
   Run ```assembly```.
   Once built, ner-assembly-0.0.1-SNAPSHOT.jar will become available in project's ```./target/scala-2.11/``` location.
 
@@ -41,7 +41,7 @@ Named entity recognition sample using scala
 
   RegexNER feature can be used to improve coverage, or override CoreNLP results.
   Sample below is using ./lib/myTokensRegex.txt as a source for RegexNER.
-  Instructions in a file override standard classification for `Los Angeles` from `LOCATION` to `ORGANIZATION`, and assigns `PERSON` classification to `Aa Bb`:
+  Instructions in a file (below) override standard classification for ```Los Angeles``` from ```LOCATION``` to ```ORGANIZATION```, and assign ```PERSON``` classification to ```Aa Bb```:
 
   ```
   Los Angeles	ORGANIZATION	LOCATION
@@ -69,7 +69,7 @@ Named entity recognition sample using scala
 
 ### Using your own model(s)
 
-  You can override a list of model(s) used by assigning a new comma delimited list while creating an instance of SNerPipeline.
+  While creating an instance of SNerPipeline, you can override a list of model(s) used by assigning a new comma delimited list.
   Below sample still uses one of CoreNLP (english.all.3class.distsim.crf.ser.gz) models, plus one of her own.
 
   ```
@@ -88,7 +88,7 @@ Named entity recognition sample using scala
 
   ```
 
-  If required you can still add RegexNER to the mix while creating SNerPipeline instance:
+  If required you can still add RegexNER to the mix:
 
   ```
   val pipeLine = SNerPipeline(Some("./lib/myTokensRegex.txt"),
