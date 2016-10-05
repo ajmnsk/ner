@@ -95,3 +95,8 @@ Named entity recognition sample using scala
                               Some("./lib/english.all.3class.distsim.crf.ser.gz,./lib/my-model.ser.gz"))
   ```
 
+## Author & license
+
+If you have any questions regarding this project contact:
+Andrei <ajmnsk@gmail.com>
+For licensing info see LICENSE file in project's root directory.
