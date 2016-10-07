@@ -47,8 +47,8 @@ class SNer() {
     * @param tagsToCollect tags to collect, if not provided, no filtering will be done, and result will have all identified tokens
     * @return results
     */
-  def processString(pipeline: Pipeline, data: String, tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
-    processArray(pipeline, Array(data), tagsToCollect)
+  def process(pipeline: Pipeline, data: String, tagsToCollect: Set[String]): Set[EmbeddedToken] = {
+    process(pipeline, Array(data), tagsToCollect)
   }
 
   /**
@@ -59,8 +59,8 @@ class SNer() {
     * @param tagsToCollect tags to collect, if not provided, no filtering will be done, and result will have all identified tokens
     * @return results
     */
-  def processFile(pipeline: Pipeline, data: String, tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
-    processIterator(pipeline, Source.fromFile(data).getLines(), tagsToCollect)
+  def processFile(pipeline: Pipeline, data: String, tagsToCollect: Set[String]): Set[EmbeddedToken] = {
+    process(pipeline, Source.fromFile(data).getLines(), tagsToCollect)
   }
 
   /**
@@ -71,8 +71,8 @@ class SNer() {
     * @param tagsToCollect tags to collect, if not provided, no filtering will be done, and result will have all identified tokens
     * @return results
     */
-  def processArray(pipeline: Pipeline, data: Array[String], tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
-    processIterator(pipeline, data.toIterator, tagsToCollect)
+  def process(pipeline: Pipeline, data: Array[String], tagsToCollect: Set[String]): Set[EmbeddedToken] = {
+    process(pipeline, data.toIterator, tagsToCollect)
   }
 
   /**
@@ -83,7 +83,7 @@ class SNer() {
     * @param tagsToCollect tags to collect, if not provided, no filtering will be done, and result will have all identified tokens
     * @return results
     */
-  def processIterator(pipeline: Pipeline, data: Iterator[String], tagsToCollect: Set[String] = Set.empty[String]): Set[EmbeddedToken] = {
+  def process(pipeline: Pipeline, data: Iterator[String], tagsToCollect: Set[String]): Set[EmbeddedToken] = {
 
     //collections for classified tokens
     val currentToken = collection.mutable.Set[String]()
@@ -103,7 +103,6 @@ class SNer() {
 
     tokens.toSet
   }
-
 
   /**
     * Method gets all the sentences for passed-in data

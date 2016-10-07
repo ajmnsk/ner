@@ -24,17 +24,17 @@ class NerTest extends FunSpecLike with Matchers {
     val pipeLine: Pipeline = SNerPipeline()
 
     it("Should be able to identify EmbeddedToken(PERSON,Hillary Clinton)") {
-      val tokens = sner.processArray(pipeLine, input)
+      val tokens = sner.process(pipeLine, input, Set.empty[String])
       tokens.contains(phc) should equal(true)
     }
 
     it("Should be able to identify EmbeddedToken(LOCATION,Los Angeles)") {
-      val tokens = sner.processArray(pipeLine, input, Set("LOCATION"))
+      val tokens = sner.process(pipeLine, input, Set("LOCATION"))
       tokens.contains(lla) should equal(true)
     }
 
     it("Should not be able to identify Aa Bb as a PERSON") {
-      val tokens = sner.processArray(pipeLine, input, Set("PERSON"))
+      val tokens = sner.process(pipeLine, input, Set("PERSON"))
       tokens.contains(aabb) should equal(false)
     }
 
@@ -47,17 +47,17 @@ class NerTest extends FunSpecLike with Matchers {
     val pipeLine = SNerPipeline(regexnerPath = regexnerPathTest)
 
     it("Should still be able to identify EmbeddedToken(PERSON,Hillary Clinton).") {
-      val tokens = sner.processString(pipeLine, "Democratic presidential nominee Hillary Clinton.", Set("PERSON"))
+      val tokens = sner.process(pipeLine, "Democratic presidential nominee Hillary Clinton.", Set("PERSON"))
       tokens.contains(phc) should equal(true)
     }
 
     it("Should be able to identify Los Angeles as EmbeddedToken(ORGANIZATION,Los Angeles), LOCATION value should be overriden via RegexNER source file.") {
-      val tokens = sner.processArray(pipeLine, input, Set("ORGANIZATION"))
+      val tokens = sner.process(pipeLine, input, Set("ORGANIZATION"))
       tokens.contains(ola) should equal(true)
     }
 
     it("Should be able to identify Aa Bb as EmbeddedToken(PERSON,Aa Bb). RegexNER is used to improve the coverage.") {
-      val tokens = sner.processArray(pipeLine, input, Set("PERSON"))
+      val tokens = sner.process(pipeLine, input, Set("PERSON"))
       tokens.contains(aabb) should equal(true)
     }
 

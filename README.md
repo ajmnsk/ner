@@ -30,7 +30,7 @@ Named entity recognition sample using scala
 
     val sner = SNer()
     val pipeLine: Pipeline = SNerPipeline() //create pipeline with default CoreNLP models
-    val tokens: Set[EmbeddedToken] = sner.processArray(pipeLine, input) // omit last tagsToCollect parameter to capture all tokens.
+    val tokens: Set[EmbeddedToken] = sner.process(pipeLine, input) // omit last tagsToCollect parameter to capture all tokens.
 
     println(tokens)
     //Set(EmbeddedToken(LOCATION,Los Angeles), EmbeddedToken(DATE,last year), EmbeddedToken(PERSON,Hillary Clinton), EmbeddedToken(NUMBER,11.8 million), EmbeddedToken(ORGANIZATION,Center of Investigative Reporting), EmbeddedToken(NUMBER,seven), EmbeddedToken(LOCATION,California), EmbeddedToken(MISC,Democratic), EmbeddedToken(MISC,Republican))
@@ -60,7 +60,7 @@ Named entity recognition sample using scala
 
     val sner = SNer()
     val pipeLineRegex: Pipeline = SNerPipeline(regexnerPath = Some("./lib/myTokensRegex.txt"))
-    val tokensRegex: Set[EmbeddedToken] = sner.processArray(pipeLineRegex, input, Set("PERSON", "LOCATION", "ORGANIZATION"))
+    val tokensRegex: Set[EmbeddedToken] = sner.process(pipeLineRegex, input, Set("PERSON", "LOCATION", "ORGANIZATION"))
 
     println(tokensRegex)
     //Set(EmbeddedToken(ORGANIZATION,Los Angeles), EmbeddedToken(PERSON,Hillary Clinton), EmbeddedToken(PERSON,Aa Bb), EmbeddedToken(ORGANIZATION,Center of Investigative Reporting), EmbeddedToken(LOCATION,California))
@@ -82,7 +82,7 @@ Named entity recognition sample using scala
 
     val sner = SNer()
     val pipeLine: Pipeline = SNerPipeline(nerPath = Some("./lib/english.all.3class.distsim.crf.ser.gz,./lib/my-model.ser.gz"))
-    val tokens: Set[EmbeddedToken] = sner.processArray(pipeLine, input, Set("PERSON", "LOCATION", "ORGANIZATION"))
+    val tokens: Set[EmbeddedToken] = sner.process(pipeLine, input, Set("PERSON", "LOCATION", "ORGANIZATION"))
 
     println(tokens)
 
