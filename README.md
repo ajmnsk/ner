@@ -2,7 +2,7 @@ Named entity recognition sample using scala
 ===============================================
 
   Inspired by [Humphrey Sheil](http://www.informit.com/articles/article.aspx?p=2265404) article.
-  This simple library is written in scala and using [Stanford CoreNLP suite of tools](http://stanfordnlp.github.io/CoreNLP/).
+  This simple library is written in scala and uses [Stanford CoreNLP suite of tools](http://stanfordnlp.github.io/CoreNLP/).
   Need to be familiar with [Stanford Named Entity Recognizer (NER)](http://nlp.stanford.edu/software/CRF-NER.shtml) to understand the usage.
 
 ## Build library
@@ -30,7 +30,7 @@ Named entity recognition sample using scala
 
     val sner = SNer()
     val pipeLine: Pipeline = SNerPipeline() //create pipeline with default CoreNLP models
-    val tokens: Set[EmbeddedToken] = sner.process(pipeLine, input) // omit last tagsToCollect parameter to capture all tokens.
+    val tokens: Set[EmbeddedToken] = sner.process(pipeLine, input, Set.empty[String]) //pass empty tagsToCollect parameter to capture all tokens. Empty Set means no filtering.
 
     println(tokens)
     //Set(EmbeddedToken(LOCATION,Los Angeles), EmbeddedToken(DATE,last year), EmbeddedToken(PERSON,Hillary Clinton), EmbeddedToken(NUMBER,11.8 million), EmbeddedToken(ORGANIZATION,Center of Investigative Reporting), EmbeddedToken(NUMBER,seven), EmbeddedToken(LOCATION,California), EmbeddedToken(MISC,Democratic), EmbeddedToken(MISC,Republican))
@@ -60,7 +60,7 @@ Named entity recognition sample using scala
 
     val sner = SNer()
     val pipeLineRegex: Pipeline = SNerPipeline(regexnerPath = Some("./lib/myTokensRegex.txt"))
-    val tokensRegex: Set[EmbeddedToken] = sner.process(pipeLineRegex, input, Set("PERSON", "LOCATION", "ORGANIZATION"))
+    val tokensRegex: Set[EmbeddedToken] = sner.process(pipeLineRegex, input, Set("PERSON", "LOCATION", "ORGANIZATION")) //assign to tagsToCollect parameter tokens would like to collect
 
     println(tokensRegex)
     //Set(EmbeddedToken(ORGANIZATION,Los Angeles), EmbeddedToken(PERSON,Hillary Clinton), EmbeddedToken(PERSON,Aa Bb), EmbeddedToken(ORGANIZATION,Center of Investigative Reporting), EmbeddedToken(LOCATION,California))
@@ -91,8 +91,7 @@ Named entity recognition sample using scala
   If required you can still add RegexNER to the mix:
 
   ```
-  val pipeLine: Pipeline = SNerPipeline(Some("./lib/myTokensRegex.txt"),
-                              Some("./lib/english.all.3class.distsim.crf.ser.gz,./lib/my-model.ser.gz"))
+  val pipeLine: Pipeline = SNerPipeline(Some("./lib/myTokensRegex.txt"), Some("./lib/english.all.3class.distsim.crf.ser.gz,./lib/my-model.ser.gz"))
   ```
 
 ## Author & license
