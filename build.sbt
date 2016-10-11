@@ -15,3 +15,8 @@ libraryDependencies ++= Seq(
 )
 
 javacOptions ++= Seq("-source", "1.8", "-target", "1.8", "-Xlint")
+
+assemblyMergeStrategy in assembly := {
+  case PathList("META-INF", xs @ _*) => MergeStrategy.discard
+  case x => MergeStrategy.first
+}
