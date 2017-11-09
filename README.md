@@ -20,7 +20,7 @@ Named entity recognition sample using scala
 
   Below sample is using default models coming with CoreNLP installation.
 
-  ```
+  ``` Scala
     import org.aj.ner._
 
     val input = Array[String](
@@ -50,7 +50,7 @@ Named entity recognition sample using scala
 
   Samle usage:
 
-  ```
+  ``` Scala
     import org.aj.ner._
 
     val input = Array[String](
@@ -72,7 +72,7 @@ Named entity recognition sample using scala
   While creating an instance of SNerPipeline, you can override a list of model(s) used by assigning a new comma delimited list.
   Below sample still uses one of CoreNLP (english.all.3class.distsim.crf.ser.gz) models, plus one of her own.
 
-  ```
+  ``` Scala
     import org.aj.ner._
 
     val input = Array[String](
@@ -90,7 +90,7 @@ Named entity recognition sample using scala
 
   If required you can still add RegexNER to the mix:
 
-  ```
+  ``` Scala
   val pipeLine: Pipeline = SNerPipeline(Some("./lib/myTokensRegex.txt"), Some("./lib/english.all.3class.distsim.crf.ser.gz,./lib/my-model.ser.gz"))
   ```
 
